@@ -14,8 +14,10 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     python3 python3-pip \
     tesseract-ocr 
 
-# Copy all data
-copy . /srv/openalpr
+
+workdir /srv/
+
+run git clone https://github.com/openalpr/openalpr.git
 
 # Setup the build directory
 run mkdir /srv/openalpr/src/build
