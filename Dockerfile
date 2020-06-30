@@ -1,10 +1,12 @@
-from ubuntu
+from ubuntu:18.04
 # Install prerequisites
+
+run apt-get update && apt-get install apt-utils -y
+
 run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     cmake \
     curl \
-    git \
     libcurl3-dev \
     libleptonica-dev \
     liblog4cplus-dev \
@@ -12,9 +14,14 @@ run apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libtesseract-dev \
     wget \
     python3 python3-pip \
-    tesseract-ocr 
+    tesseract-ocr \
+    software-properties-common
 
-
+run add-apt-repository ppa:alex-p/tesseract-ocr -y
+run apt-get update -y && apt-get purge libtesseract-dev -y  \
+    libtesseract-dev \
+    git
+    
 workdir /srv/
 
 run git clone https://github.com/openalpr/openalpr.git
@@ -33,3 +40,4 @@ run python3 setup.py install
 workdir /data
 
 CMD [ "/bin/bash" ]
+
